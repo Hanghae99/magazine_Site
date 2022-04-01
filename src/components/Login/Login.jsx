@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router";
 
 const Login = (props) => {
+  const navigate = useNavigate();
   return (
     <>
       <LogPage>
@@ -11,7 +13,13 @@ const Login = (props) => {
           <Input type="text" placeholder="비밀번호" />
         </div>
         <Button>로그인</Button>
-        <SignUp>회원가입하러가기</SignUp>
+        <SignUp
+          onClick={() => {
+            navigate("/sign");
+          }}
+        >
+          회원가입하러가기
+        </SignUp>
       </LogPage>
     </>
   );

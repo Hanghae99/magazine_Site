@@ -1,18 +1,18 @@
 import React from "react";
-import Login from "../components/Login/Login";
+import SignUp from "../components/Login/SignUp";
 import styled from "styled-components";
 
-const LoginPage = (props) => {
+const SignUpPage = (props) => {
   return (
     <>
       <Layout>
-        <Login />
+        <SignUp />
       </Layout>
     </>
   );
 };
 
-export default LoginPage;
+export default SignUpPage;
 
 const Layout = styled.div`
   display: flex;
