@@ -1,11 +1,12 @@
 import React from "react";
-import Header from "../components/Header/Header";
+import Header from "../components/header/Header";
+import MainContent from "../components/contentCard/MainContent";
 
 const MainPage = (props) => {
   return (
     <>
       <Header />
-      <h1> 여기는 메인페이지야!</h1>
+      <MainContent />
     </>
   );
 };

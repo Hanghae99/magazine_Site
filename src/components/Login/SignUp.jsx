@@ -5,7 +5,7 @@ const SignUp = (props) => {
   return (
     <>
       <SignPg>
-        <Title>SignUp</Title>
+        <Title>회원가입</Title>
         <div>
           <Bold>아이디</Bold>
           <Input type="text" placeholder="아이디" />

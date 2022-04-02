@@ -1,7 +1,7 @@
 import React from "react";
-import Login from "../components/Login/Login";
+import Login from "../components/login/Login";
 import styled from "styled-components";
-import Header from "../components/Header/Header";
+import Header from "../components/header/Header";
 
 const LoginPage = (props) => {
   return (

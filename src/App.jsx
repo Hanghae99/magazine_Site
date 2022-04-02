@@ -1,5 +1,6 @@
 import "./App.css";
 import LoginPage from "./pages/LoginPage";
+import ReviewPage from "./pages/ReviewPage";
 import { Route } from "react-router-dom";
 import SignUpPage from "./pages/SignUpPage";
 import MainPage from "./pages/MainPage";
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" exact component={MainPage} />
         <Route path="/login" exact component={LoginPage} />
         <Route path="/sign" exact component={SignUpPage} />
+        <Route path="/review" exact component={ReviewPage} />
       </ConnectedRouter>
     </>
   );

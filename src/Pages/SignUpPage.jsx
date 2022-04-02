@@ -1,7 +1,7 @@
 import React from "react";
-import SignUp from "../components/Login/SignUp";
+import SignUp from "../components/login/SignUp";
 import styled from "styled-components";
-import Header from "../components/Header/Header";
+import Header from "../components/header/Header";
 
 const SignUpPage = (props) => {
   return (

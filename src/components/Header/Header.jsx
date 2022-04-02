@@ -12,56 +12,81 @@ const Header = (props) => {
   if (isLogin) {
     return (
       <>
-        <Button
-          onClick={() => {
-            history.push("/");
-          }}
-        >
-          <i className="fa-solid fa-house"></i>
-        </Button>
+        <Total>
+          <Home>
+            <Button
+              onClick={() => {
+                history.push("/");
+              }}
+            >
+              <i className="fa-solid fa-house"></i>
+            </Button>
+          </Home>
+          <Wrapper>
+            <Button>내정보 | </Button>
+            <Button>알림 | </Button>
 
-        <Button>내정보</Button>
-
-        <Button
-          onClick={() => {
-            dispatch(userActions.logOut({}));
-          }}
-        >
-          로그아웃
-        </Button>
+            <Button
+              onClick={() => {
+                dispatch(userActions.logOut({}));
+              }}
+            >
+              로그아웃
+            </Button>
+          </Wrapper>
+        </Total>
       </>
     );
   }
   return (
     <>
-      <Button
-        onClick={() => {
-          history.push("/");
-        }}
-      >
-        <i className="fa-solid fa-house"></i>
-      </Button>
-
-      <Button
-        onClick={() => {
-          history.push("/login");
-        }}
-      >
-        로그인
-      </Button>
-
-      <Button
-        onClick={() => {
-          history.push("/sign");
-        }}
-      >
-        회원가입
-      </Button>
+      <Total>
+        <Home>
+          <Button
+            onClick={() => {
+              history.push("/");
+            }}
+          >
+            <i className="fa-solid fa-house"></i>
+          </Button>
+        </Home>
+        <Wrapper>
+          <Button
+            onClick={() => {
+              history.push("/login");
+            }}
+          >
+            로그인 |
+          </Button>
+          <Button
+            onClick={() => {
+              history.push("/sign");
+            }}
+          >
+            회원가입
+          </Button>
+        </Wrapper>
+      </Total>
     </>
   );
 };
 
 export default Header;
+
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: right;
+`;
+
+const Total = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 30px;
+`;
+
+const Home = styled.div`
+  font-size: large;
+`;
 
 const Button = styled.button`
   font-size: large;
