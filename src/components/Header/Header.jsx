@@ -26,7 +26,7 @@ const Header = (props) => {
             navigate("/");
           }}
         >
-          <i class="fa-solid fa-house"></i>
+          <i className="fa-solid fa-house"></i>
         </Button>
 
         <Button>내정보</Button>
