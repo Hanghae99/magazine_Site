@@ -1,11 +1,14 @@
 import React from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router";
-import { setCookie } from "../../utils/Cookie";
+import { useHistory } from "react-router";
+import { useDispatch } from "react-redux";
+import { actionCreators as userActions } from "../../redux/modules/user";
 
 const Login = (props) => {
   const [id, setId] = React.useState("");
   const [pwd, setPwd] = React.useState("");
+  const history = useHistory();
+  const dispatch = useDispatch();
 
   const changeId = (e) => {
     setId(e.target.value);
@@ -16,10 +19,9 @@ const Login = (props) => {
   };
 
   const login = () => {
-    setCookie("user_id", "yeonjae", 3);
-    setCookie("user_pwd", "yyyy", 3);
+    dispatch(userActions.loginAction({ user_name: "yeonnJ" }));
   };
-  const navigate = useNavigate();
+
   return (
     <>
       <LogPage>
@@ -47,7 +49,7 @@ const Login = (props) => {
         </Button>
         <SignUp
           onClick={() => {
-            navigate("/sign");
+            history.push("/sign");
           }}
         >
           회원가입하러가기

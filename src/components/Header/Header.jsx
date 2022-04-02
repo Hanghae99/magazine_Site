@@ -1,29 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router";
+import { useHistory } from "react-router";
 import styled from "styled-components";
-import { getCookie, deleteCookie } from "../../utils/Cookie";
+import { useSelector, useDispatch } from "react-redux";
+import { actionCreators as userActions } from "../../redux/modules/user";
 
 const Header = (props) => {
-  const navigate = useNavigate();
-  const [isLogin, setIsLogin] = React.useState(false);
-
-  React.useEffect(() => {
-    let cookie = getCookie("MY_COOKIE");
-    console.log(cookie);
-
-    if (cookie) {
-      setIsLogin(true);
-    } else {
-      setIsLogin(false);
-    }
-  });
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const isLogin = useSelector((state) => state.user.isLogin);
 
   if (isLogin) {
     return (
       <>
         <Button
           onClick={() => {
-            navigate("/");
+            history.push("/");
           }}
         >
           <i className="fa-solid fa-house"></i>
@@ -33,7 +24,7 @@ const Header = (props) => {
 
         <Button
           onClick={() => {
-            deleteCookie("MY_COOKIE");
+            dispatch(userActions.logOut({}));
           }}
         >
           로그아웃
@@ -45,7 +36,7 @@ const Header = (props) => {
     <>
       <Button
         onClick={() => {
-          navigate("/");
+          history.push("/");
         }}
       >
         <i className="fa-solid fa-house"></i>
@@ -53,7 +44,7 @@ const Header = (props) => {
 
       <Button
         onClick={() => {
-          navigate("/login");
+          history.push("/login");
         }}
       >
         로그인
@@ -61,7 +52,7 @@ const Header = (props) => {
 
       <Button
         onClick={() => {
-          navigate("/sign");
+          history.push("/sign");
         }}
       >
         회원가입
