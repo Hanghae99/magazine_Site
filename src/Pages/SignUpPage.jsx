@@ -1,10 +1,12 @@
 import React from "react";
 import SignUp from "../components/Login/SignUp";
 import styled from "styled-components";
+import Header from "../components/Header/Header";
 
 const SignUpPage = (props) => {
   return (
     <>
+      <Header />
       <Layout>
         <SignUp />
       </Layout>

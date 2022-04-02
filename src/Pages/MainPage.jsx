@@ -1,26 +1,10 @@
 import React from "react";
-import { useNavigate } from "react-router";
+import Header from "../components/Header/Header";
 
 const MainPage = (props) => {
-  const navigate = useNavigate();
   return (
     <>
-      <button
-        onClick={() => {
-          navigate("/login");
-        }}
-      >
-        로그인
-      </button>
-
-      <button
-        onClick={() => {
-          navigate("/sign");
-        }}
-      >
-        회원가입
-      </button>
-
+      <Header />
       <h1> 여기는 메인페이지야!</h1>
     </>
   );

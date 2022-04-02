@@ -8,19 +8,19 @@ const SignUp = (props) => {
         <Title>SignUp</Title>
         <div>
           <Bold>아이디</Bold>
-          <Input type="text" placeholder="아이디를 입력해주세요" />
+          <Input type="text" placeholder="아이디" />
         </div>
         <div>
           <Bold>닉네임</Bold>
-          <Input type="text" placeholder="닉네임을 입력해주세요" />
+          <Input type="text" placeholder="닉네임" />
         </div>
         <div>
           <Bold>비밀번호</Bold>
-          <Input type="text" placeholder="비밀번호를 입력해주세요" />
+          <Input type="text" placeholder="비밀번호" />
         </div>
         <div>
           <Bold>비밀번호 확인</Bold>
-          <Input type="text" placeholder="한번 더 입력해주세요" />
+          <Input type="text" placeholder="비밀번호 확인" />
         </div>
 
         <Button>회원가입하기</Button>
@@ -60,14 +60,16 @@ const Button = styled.button`
   justify-content: center;
   align-items: center;
   border-style: none;
-  width: 405px;
-  height: 40px;
+  width: 170px;
+  height: 60px;
   margin: 20px;
-  margin-left: 10px;
+  margin-top: 50px;
+  margin-left: 130px;
   background-color: #bf9b8e;
   cursor: pointer;
 `;
 
 const Bold = styled.p`
   font-weight: 600;
+  color: #bf3641;
 `;

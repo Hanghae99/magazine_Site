@@ -1,10 +1,12 @@
 import React from "react";
 import Login from "../components/Login/Login";
 import styled from "styled-components";
+import Header from "../components/Header/Header";
 
 const LoginPage = (props) => {
   return (
     <>
+      <Header />
       <Layout>
         <Login />
       </Layout>

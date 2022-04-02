@@ -1,18 +1,50 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router";
+import { setCookie } from "../../utils/Cookie";
 
 const Login = (props) => {
+  const [id, setId] = React.useState("");
+  const [pwd, setPwd] = React.useState("");
+
+  const changeId = (e) => {
+    setId(e.target.value);
+  };
+
+  const changePwd = (e) => {
+    setPwd(e.target.value);
+  };
+
+  const login = () => {
+    setCookie("user_id", "yeonjae", 3);
+    setCookie("user_pwd", "yyyy", 3);
+  };
   const navigate = useNavigate();
   return (
     <>
       <LogPage>
-        <Title> Hanghae99</Title>
+        <Title> Login</Title>
         <div>
-          <Input type="text" placeholder="아이디" />
-          <Input type="text" placeholder="비밀번호" />
+          <Input
+            value={id}
+            onChange={changeId}
+            type="text"
+            placeholder="아이디"
+          />
+          <Input
+            value={pwd}
+            onChange={changePwd}
+            type="text"
+            placeholder="비밀번호"
+          />
         </div>
-        <Button>로그인</Button>
+        <Button
+          onClick={() => {
+            login();
+          }}
+        >
+          로그인
+        </Button>
         <SignUp
           onClick={() => {
             navigate("/sign");
