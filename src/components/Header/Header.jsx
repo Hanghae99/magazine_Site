@@ -104,5 +104,5 @@ const Button = styled.button`
   border-style: none;
   background-color: white;
   cursor: pointer;
-  color: #736055;
+  color: #515931;
 `;

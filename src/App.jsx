@@ -10,6 +10,9 @@ import { actionCreators as userActions } from "./redux/modules/user";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { apiKey } from "./utils/firebase";
+import Permit from "./utils/Permit";
+import ReviewBtn from "./components/review/ReviewBtn";
+import ReviewDetailPage from "./pages/ReviewDetailPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,6 +32,10 @@ function App() {
         <Route path="/login" exact component={LoginPage} />
         <Route path="/sign" exact component={SignUpPage} />
         <Route path="/review" exact component={ReviewPage} />
+        <Route path="/detail" exact component={ReviewDetailPage} />
+        <Permit>
+          <ReviewBtn />
+        </Permit>
       </ConnectedRouter>
     </>
   );

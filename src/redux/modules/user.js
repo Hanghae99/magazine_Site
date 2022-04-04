@@ -2,7 +2,6 @@ import { createAction, handleAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { setCookie, getCookie, deleteCookie } from "../../utils/Cookie";
 import { auth } from "../../utils/firebase";
-import { useHistory } from "react-router";
 import {
   getAuth,
   signInWithEmailAndPassword,

@@ -78,7 +78,7 @@ const Title = styled.h4`
 const Img = styled.img``;
 
 const Section = styled.section`
-  background-color: #d9b29c;
+  background-color: #f2f2f2;
   border-radius: 20px;
   width: 50%;
   display: block;

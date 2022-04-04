@@ -24,7 +24,7 @@ const InputReview = styled.input`
 
 const Button = styled.button`
   border-style: none;
-  background-color: #bf634e;
+  background-color: #f29e6d;
   color: white;
   width: 70px;
   height: 55px;

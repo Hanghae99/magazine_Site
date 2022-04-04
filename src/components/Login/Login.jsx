@@ -21,6 +21,7 @@ const Login = (props) => {
   const login = () => {
     if (id === "" || pwd === "") {
       window.alert("아이디 혹은 비밀번호가 비어있습니다.");
+
       return;
     }
     dispatch(userActions.loginFB(id, pwd));
@@ -75,7 +76,7 @@ const Title = styled.h1`
   align-items: center;
   margin: 50px;
   font-size: 40px;
-  color: #736055;
+  color: #515931;
 `;
 
 const LogPage = styled.div`
@@ -102,7 +103,7 @@ const Button = styled.button`
   width: 405px;
   height: 40px;
   margin: 10px;
-  background-color: #bf9b8e;
+  background-color: #f29e6d;
   cursor: pointer;
 `;
 

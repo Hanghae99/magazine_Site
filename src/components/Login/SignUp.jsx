@@ -83,7 +83,7 @@ const Title = styled.h1`
   margin-bottom: 30px;
   font-size: 50px;
   /* margin-left: 130px; */
-  color: #736055;
+  color: #515931;
 `;
 
 const Input = styled.input`
@@ -107,12 +107,12 @@ const Button = styled.button`
   height: 60px;
   margin-top: 20px;
   margin-left: 190px;
-  background-color: #736055;
+  background-color: #515931;
   cursor: pointer;
   color: white;
 `;
 
 const Bold = styled.p`
   font-weight: 600;
-  color: #bf3641;
+  color: #f29e6d;
 `;
