@@ -3,13 +3,22 @@ import { useHistory } from "react-router";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../../redux/modules/user";
+import { History } from "../../redux/store";
+import { apiKey } from "../../utils/firebase";
 
 const Header = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.user.isLogin);
+  const sessionKey = `firebase:authUser:${apiKey}:[DEFAULT]`;
+  const isSession = sessionStorage.getItem(sessionKey) ? true : false;
 
-  if (isLogin) {
+  console.log(isSession);
+
+  // console.log(sessionKey);
+  // console.log(sessionStorage.getItem(sessionKey));
+
+  if (isLogin && isSession) {
     return (
       <>
         <Total>
@@ -28,7 +37,7 @@ const Header = (props) => {
 
             <Button
               onClick={() => {
-                dispatch(userActions.logOut({}));
+                dispatch(userActions.logOutFB());
               }}
             >
               로그아웃

@@ -3,9 +3,14 @@ import { produce } from "immer";
 import { setCookie, getCookie, deleteCookie } from "../../utils/Cookie";
 import { auth } from "../../utils/firebase";
 import { useHistory } from "react-router";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  setPersistence,
+  browserSessionPersistence,
+} from "firebase/auth";
 
-// const history = useHistory()
+import firebase from "firebase/app";
 
 //action type
 
@@ -25,31 +30,37 @@ const initialState = {
 };
 
 //middleware
-// const loginAction = (user) => {
-//   return function (dispatch, getState, { history }) {
-//     console.log(history);
-//     dispatch(setUser(user));
-//     history.push("/");
-//   };
-// };
-
 const loginFB = (id, pwd) => {
   return function (dispatch, getState, { history }) {
     const auth = getAuth();
-    signInWithEmailAndPassword(auth, id, pwd)
-      .then((user) => {
-        console.log(user);
-        dispatch(
-          setUser({
-            user_name: user.user.displayName,
-            id: id,
-            user_profile: "",
-          })
-        );
 
-        history.push("/");
+    setPersistence(auth, browserSessionPersistence)
+      .then((res) => {
+        const auth = getAuth();
+        signInWithEmailAndPassword(auth, id, pwd)
+          .then((user) => {
+            console.log(user);
+            dispatch(
+              setUser({
+                user_name: user.user.displayName,
+                id: id,
+                user_profile: "",
+                uid: user.user.uid,
+              })
+            );
+
+            history.push("/");
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+
+            console.log(errorCode, errorMessage);
+          });
+        return signInWithEmailAndPassword(auth, id, pwd);
       })
       .catch((error) => {
+        // Handle Errors here.
         const errorCode = error.code;
         const errorMessage = error.message;
 
@@ -70,7 +81,12 @@ const signUpFB = (id, pwd, user_name) => {
           })
           .then(() => {
             dispatch(
-              setUser({ user_name: user_name, id: id, user_profile: "" })
+              setUser({
+                user_name: user_name,
+                id: id,
+                user_profile: "",
+                uid: user.user.uid,
+              })
             );
             history.push("/");
           })
@@ -85,6 +101,34 @@ const signUpFB = (id, pwd, user_name) => {
         console.log(errorCode, errorMessage);
         // ..
       });
+  };
+};
+
+const loginCheckFB = () => {
+  return function (dispatch, getState, { history }) {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        dispatch(
+          setUser({
+            user_name: user.displayName,
+            user_profile: "",
+            id: user.email,
+            uid: user.uid,
+          })
+        );
+      } else {
+        dispatch(logOut());
+      }
+    });
+  };
+};
+
+const logOutFB = () => {
+  return function (dispatch, getState, { history }) {
+    auth.signOut().then(() => {
+      dispatch(logOut());
+      history.replace("/");
+    });
   };
 };
 
@@ -113,8 +157,9 @@ const actionCreators = {
   signUpFB,
   logOut,
   getUser,
-  // loginAction,
   loginFB,
+  loginCheckFB,
+  logOutFB,
 };
 
 export { actionCreators };
