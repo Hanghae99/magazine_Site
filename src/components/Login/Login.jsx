@@ -10,16 +10,20 @@ const Login = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const changeId = (e) => {
-    setId(e.target.value);
-  };
+  // const changeId = (e) => {
+  //   setId(e.target.value);
+  // };
 
-  const changePwd = (e) => {
-    setPwd(e.target.value);
-  };
+  // const changePwd = (e) => {
+  //   setPwd(e.target.value);
+  // };
 
   const login = () => {
-    dispatch(userActions.loginAction({ user_name: "yeonnJ" }));
+    if (id === "" || pwd === "") {
+      window.alert("아이디 혹은 비밀번호가 비어있습니다.");
+      return;
+    }
+    dispatch(userActions.loginFB(id, pwd));
   };
 
   return (
@@ -29,13 +33,17 @@ const Login = (props) => {
         <div>
           <Input
             value={id}
-            onChange={changeId}
+            onChange={(e) => {
+              setId(e.target.value);
+            }}
             type="text"
             placeholder="아이디"
           />
           <Input
             value={pwd}
-            onChange={changePwd}
+            onChange={(e) => {
+              setPwd(e.target.value);
+            }}
             type="password"
             placeholder="비밀번호"
           />

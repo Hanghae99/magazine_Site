@@ -3,6 +3,7 @@ import { produce } from "immer";
 import { setCookie, getCookie, deleteCookie } from "../../utils/Cookie";
 import { auth } from "../../utils/firebase";
 import { useHistory } from "react-router";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 // const history = useHistory()
 
@@ -24,11 +25,36 @@ const initialState = {
 };
 
 //middleware
-const loginAction = (user) => {
+// const loginAction = (user) => {
+//   return function (dispatch, getState, { history }) {
+//     console.log(history);
+//     dispatch(setUser(user));
+//     history.push("/");
+//   };
+// };
+
+const loginFB = (id, pwd) => {
   return function (dispatch, getState, { history }) {
-    console.log(history);
-    dispatch(setUser(user));
-    history.push("/");
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, id, pwd)
+      .then((user) => {
+        console.log(user);
+        dispatch(
+          setUser({
+            user_name: user.user.displayName,
+            id: id,
+            user_profile: "",
+          })
+        );
+
+        history.push("/");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+
+        console.log(errorCode, errorMessage);
+      });
   };
 };
 
@@ -87,7 +113,8 @@ const actionCreators = {
   signUpFB,
   logOut,
   getUser,
-  loginAction,
+  // loginAction,
+  loginFB,
 };
 
 export { actionCreators };
