@@ -1,29 +1,72 @@
 import React from "react";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { actionCreators as userActions } from "../../redux/modules/user";
 
 const SignUp = (props) => {
+  const dispatch = useDispatch();
+
+  const [id, setId] = React.useState("");
+  const [pwd, setPwd] = React.useState("");
+  const [pwdCheck, setPwdCheck] = React.useState("");
+  const [user_name, setUserName] = React.useState("");
+
+  const signUp = () => {
+    if (id === "" || pwd === "" || user_name === "") {
+      return;
+    }
+    if (pwd !== pwdCheck) {
+      return;
+    }
+
+    dispatch(userActions.signUpFB(id, pwd, user_name));
+  };
   return (
     <>
       <SignPg>
-        <Title>회원가입</Title>
+        <Title>Sign Up</Title>
         <div>
-          <Bold>아이디</Bold>
-          <Input type="text" placeholder="아이디" />
+          <Bold>ID</Bold>
+          <Input
+            type="text"
+            placeholder="아이디"
+            onChange={(e) => {
+              setId(e.target.value);
+            }}
+          />
         </div>
         <div>
-          <Bold>닉네임</Bold>
-          <Input type="text" placeholder="닉네임" />
+          <Bold>Nickname</Bold>
+          <Input
+            type="text"
+            placeholder="닉네임"
+            onChange={(e) => {
+              setUserName(e.target.value);
+            }}
+          />
         </div>
         <div>
-          <Bold>비밀번호</Bold>
-          <Input type="text" placeholder="비밀번호" />
+          <Bold>Password</Bold>
+          <Input
+            type="password"
+            placeholder="비밀번호"
+            onChange={(e) => {
+              setPwd(e.target.value);
+            }}
+          />
         </div>
         <div>
-          <Bold>비밀번호 확인</Bold>
-          <Input type="text" placeholder="비밀번호 확인" />
+          <Bold>Password Check</Bold>
+          <Input
+            type="password"
+            placeholder="비밀번호 확인"
+            onChange={(e) => {
+              setPwdCheck(e.target.value);
+            }}
+          />
         </div>
 
-        <Button>회원가입하기</Button>
+        <Button onClick={signUp}>Click</Button>
       </SignPg>
     </>
   );
@@ -36,11 +79,11 @@ const SignPg = styled.div`
 
 const Title = styled.h1`
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 50px;
-  font-size: 40px;
-  color: #bf3641;
+  justify-content: left;
+  margin-bottom: 30px;
+  font-size: 50px;
+  /* margin-left: 130px; */
+  color: #736055;
 `;
 
 const Input = styled.input`
@@ -60,13 +103,13 @@ const Button = styled.button`
   justify-content: center;
   align-items: center;
   border-style: none;
-  width: 170px;
+  width: 80px;
   height: 60px;
-  margin: 20px;
-  margin-top: 50px;
-  margin-left: 130px;
-  background-color: #bf9b8e;
+  margin-top: 20px;
+  margin-left: 190px;
+  background-color: #736055;
   cursor: pointer;
+  color: white;
 `;
 
 const Bold = styled.p`

@@ -36,7 +36,7 @@ const Login = (props) => {
           <Input
             value={pwd}
             onChange={changePwd}
-            type="text"
+            type="password"
             placeholder="비밀번호"
           />
         </div>
@@ -67,7 +67,7 @@ const Title = styled.h1`
   align-items: center;
   margin: 50px;
   font-size: 40px;
-  color: #bf3641;
+  color: #736055;
 `;
 
 const LogPage = styled.div`

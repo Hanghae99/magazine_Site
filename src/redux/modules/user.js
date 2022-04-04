@@ -1,16 +1,21 @@
 import { createAction, handleAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { setCookie, getCookie, deleteCookie } from "../../utils/Cookie";
+import { auth } from "../../utils/firebase";
+import { useHistory } from "react-router";
+
+// const history = useHistory()
 
 //action type
-const LOG_IN = "LOG_IN";
+
 const LOG_OUT = "LOG_OUT";
 const GET_USER = "GET_USER";
+const SET_USER = "SET_USER";
 
 //action creators
-export const logIn = createAction(LOG_IN, (user) => ({ user }));
 export const logOut = createAction(LOG_OUT, (user) => ({ user }));
 export const getUser = createAction(GET_USER, (user) => ({ user }));
+export const setUser = createAction(SET_USER, (user) => ({ user }));
 
 //initial State
 const initialState = {
@@ -18,19 +23,49 @@ const initialState = {
   isLogin: false,
 };
 
-//middlewares
+//middleware
 const loginAction = (user) => {
   return function (dispatch, getState, { history }) {
     console.log(history);
-    dispatch(logIn(user));
+    dispatch(setUser(user));
     history.push("/");
+  };
+};
+
+const signUpFB = (id, pwd, user_name) => {
+  return function (dispatch, getState, { history }) {
+    auth
+      .createUserWithEmailAndPassword(id, pwd)
+      .then((user) => {
+        // console.log(user);
+        auth.currentUser
+          .updateProfile({
+            displayName: user_name,
+          })
+          .then(() => {
+            dispatch(
+              setUser({ user_name: user_name, id: id, user_profile: "" })
+            );
+            history.push("/");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      })
+      .catch((error) => {
+        let errorCode = error.code;
+        let errorMessage = error.message;
+
+        console.log(errorCode, errorMessage);
+        // ..
+      });
   };
 };
 
 //reducer
 export default handleActions(
   {
-    [LOG_IN]: (state, action) =>
+    [SET_USER]: (state, action) =>
       produce(state, (draft) => {
         setCookie("isLogin", "success");
         draft.user = action.payload.user;
@@ -49,7 +84,7 @@ export default handleActions(
 
 //action creators export
 const actionCreators = {
-  logIn,
+  signUpFB,
   logOut,
   getUser,
   loginAction,
