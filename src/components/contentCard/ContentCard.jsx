@@ -14,13 +14,10 @@ const ContentCard = (props) => {
         <Contents>
           <Profile>
             <Image />
-            <Nickname>연재몬</Nickname>
+            <Nickname>{props.user_name}</Nickname>
           </Profile>
-          <Title>항해99 B반 화이팅!</Title>
-          <Img
-            src="https://t1.daumcdn.net/cfile/tistory/99D75C3B5DC5655113"
-            alt="이미지"
-          />
+          <Title>{props.contents}</Title>
+          <Img src={props.img_url} alt="이미지" />
           <TotalCom>
             <Comment>댓글 2개</Comment>
             <Comment>좋아요 99개</Comment>

@@ -1,7 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router";
+import { actionCreators as postActions } from "../../redux/modules/post";
 
 const ReviewDetail = (props) => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const is_login = useSelector((state) => state.user.isLogin);
+  const [contents, setContents] = useState("");
+
+  const changeContents = (e) => {
+    setContents(e.target.value);
+  };
+
+  const addPost = () => {
+    dispatch(postActions.addPostFB(contents));
+  };
+
+  if (!is_login) {
+    return (
+      <>
+        <h1>앗 잠깐! 로그인이 필요한 서비스입니다</h1>
+        <button
+          onClick={() => {
+            history.replace("/");
+          }}
+        >
+          로그인하러 가기
+        </button>
+      </>
+    );
+  }
+
   return (
     <>
       <Wrapper>
@@ -12,10 +43,15 @@ const ReviewDetail = (props) => {
         </div>
 
         <div>
-          <Textarea cols="90" rows="20" placeholder="게시글 내용"></Textarea>
+          <Textarea
+            onChange={changeContents}
+            cols="90"
+            rows="20"
+            placeholder="게시글 내용"
+          ></Textarea>
         </div>
 
-        <Button>작성완료</Button>
+        <Button onClick={addPost}>작성완료</Button>
       </Wrapper>
     </>
   );

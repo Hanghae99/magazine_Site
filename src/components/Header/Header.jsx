@@ -2,21 +2,21 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { actionCreators as userActions } from "../../redux/modules/user";
+import user, { actionCreators as userActions } from "../../redux/modules/user";
 import { History } from "../../redux/store";
 import { apiKey } from "../../utils/firebase";
+import { actionCreators as postActions } from "../../redux/modules/post";
 
 const Header = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.user.isLogin);
+  const post_list = useSelector((state) => state.post.list);
+
+  console.log(post_list);
+
   const sessionKey = `firebase:authUser:${apiKey}:[DEFAULT]`;
   const isSession = sessionStorage.getItem(sessionKey) ? true : false;
-
-  console.log(isSession);
-
-  // console.log(sessionKey);
-  // console.log(sessionStorage.getItem(sessionKey));
 
   if (isLogin && isSession) {
     return (
@@ -32,15 +32,17 @@ const Header = (props) => {
             </Button>
           </Home>
           <Wrapper>
-            <Button>내정보 | </Button>
-            <Button>알림 | </Button>
+            <Button>어서오세요, 연재님🙋‍♀️ </Button>
+            <Button>
+              <i className="fa-solid fa-bell"></i>
+            </Button>
 
             <Button
               onClick={() => {
                 dispatch(userActions.logOutFB());
               }}
             >
-              로그아웃
+              <i className="fa-solid fa-right-from-bracket"></i>
             </Button>
           </Wrapper>
         </Total>
@@ -65,14 +67,14 @@ const Header = (props) => {
               history.push("/login");
             }}
           >
-            로그인 |
+            Login
           </Button>
           <Button
             onClick={() => {
               history.push("/sign");
             }}
           >
-            회원가입
+            <i className="fa-solid fa-user-plus"></i>
           </Button>
         </Wrapper>
       </Total>
@@ -105,4 +107,5 @@ const Button = styled.button`
   background-color: white;
   cursor: pointer;
   color: #515931;
+  margin: 5px;
 `;
