@@ -1,13 +1,21 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { actionCreators as postActions } from "../../redux/modules/post";
+import { actionCreators as imageActions } from "../../redux/modules/image";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage } from "../../utils/firebase";
 
 const ReviewDetail = (props) => {
+  const ImgRef = React.useRef();
+
   const dispatch = useDispatch();
   const history = useHistory();
   const is_login = useSelector((state) => state.user.isLogin);
+  const is_uploading = useSelector((state) => state.image.uploading);
+  const preview = useSelector((state) => state.image.preview);
+
   const [contents, setContents] = useState("");
 
   const changeContents = (e) => {
@@ -33,14 +41,58 @@ const ReviewDetail = (props) => {
     );
   }
 
+  const selectFile = (e) => {
+    console.log(e);
+    console.log(e.target);
+    console.log(e.target.files[0]);
+
+    console.log(ImgRef.current.files[0]);
+
+    const reader = new FileReader();
+    const file = ImgRef.current.files[0];
+
+    reader.readAsDataURL(file);
+
+    reader.onloadend = () => {
+      console.log(reader.result);
+      dispatch(imageActions.preview(reader.result));
+    };
+  };
+
+  const uploadFB = () => {
+    let image = ImgRef.current.files[0];
+
+    const storageRef = ref(storage, `imgs/${image.name}`);
+    uploadBytes(storageRef, image).then((snapshot) => {
+      console.log(snapshot);
+      getDownloadURL(ref(storage, `imgs/${image.name}`)).then((url) => {
+        console.log(url);
+      });
+    });
+  };
+
   return (
     <>
       <Wrapper>
         <div>
           <Title>게시글작성🖌</Title>
-          <Input type="text" placeholder="사진을 선택해주세용 :)" />
-          <input type="file" />
+          <Input
+            type="file"
+            onChange={selectFile}
+            ref={ImgRef}
+            disabled={is_uploading}
+          />
+          <button onClick={uploadFB}>파일 업로드</button>
         </div>
+
+        <Img
+          src={
+            preview
+              ? preview
+              : "http://image.kyobobook.co.kr/newimages/giftshop_new/goods/400/1005/hot1558260386696.jpg"
+          }
+          alt="이미지"
+        />
 
         <div>
           <Textarea
@@ -58,6 +110,14 @@ const ReviewDetail = (props) => {
 };
 
 export default ReviewDetail;
+
+const Img = styled.img`
+  background-color: aliceblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 500px;
+`;
 
 const Title = styled.h1`
   display: flex;

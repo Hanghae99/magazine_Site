@@ -11,9 +11,8 @@ const Header = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.user.isLogin);
-  const post_list = useSelector((state) => state.post.list);
-
-  console.log(post_list);
+  const user = useSelector((state) => state.user.user?.user_name);
+  console.log(user);
 
   const sessionKey = `firebase:authUser:${apiKey}:[DEFAULT]`;
   const isSession = sessionStorage.getItem(sessionKey) ? true : false;
@@ -32,7 +31,7 @@ const Header = (props) => {
             </Button>
           </Home>
           <Wrapper>
-            <Button>어서오세요, 연재님🙋‍♀️ </Button>
+            <Button>어서오세요,{user || ""}님🙋‍♀️ </Button>
             <Button>
               <i className="fa-solid fa-bell"></i>
             </Button>

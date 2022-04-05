@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useHistory } from "react-router";
 
 const ContentCard = (props) => {
+  console.log(props);
   const history = useHistory();
   return (
     <>
@@ -14,7 +15,7 @@ const ContentCard = (props) => {
         <Contents>
           <Profile>
             <Image />
-            <Nickname>{props.user_name}</Nickname>
+            <Nickname>{props.user_info.user_name}</Nickname>
           </Profile>
           <Title>{props.contents}</Title>
           <Img src={props.img_url} alt="이미지" />
