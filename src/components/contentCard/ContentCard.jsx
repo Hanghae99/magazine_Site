@@ -1,9 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router";
+import { actionCreators as imageActions } from "../../redux/modules/image";
+import { useSelector } from "react-redux";
 
 const ContentCard = (props) => {
-  console.log(props);
+  const img = useSelector((state) => state.image);
+  console.log(img);
   const history = useHistory();
   return (
     <>
@@ -15,7 +18,7 @@ const ContentCard = (props) => {
         <Contents>
           <Profile>
             <Image />
-            <Nickname>{props.user_info.user_name}</Nickname>
+            <Nickname>{props.user_info.user_name || ""}</Nickname>
           </Profile>
           <Title>{props.contents}</Title>
           <Img src={props.img_url} alt="이미지" />
